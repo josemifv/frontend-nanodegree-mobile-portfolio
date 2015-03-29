@@ -424,6 +424,11 @@ var resizePizzas = function(size) {
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
+
+    // 
+    // Optimization 1
+    // Change querySelector function by getElementById because of its better performance (http://jsperf.com/getelementbyid-vs-queryselector)
+    // 
     var windowwidth = document.getElementById("randomPizzas").offsetWidth;
     var oldsize = oldwidth / windowwidth;
 
@@ -450,6 +455,10 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
+    // 
+    // Optimization 2
+    // randomPizzaContainer new width is the same for all containsers, so its calculation was moved out of the loop.
+    // 
     var pizzaContainers = document.getElementsByClassName("randomPizzaContainer");
     var firstPizzaContainer = pizzaContainers[0];
     var dx = determineDx(firstPizzaContainer, size);
@@ -471,6 +480,12 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+
+// 
+// Optimization 1 and 3
+// Change querySelector function by getElementById because of its better performance (http://jsperf.com/getelementbyid-vs-queryselector)
+// The randomPizzas element is moved out of the loop as it is the same to all iterations.
+// 
 var pizzasDiv = document.getElementById("randomPizzas");
 for (var i = 2; i < 100; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
@@ -504,6 +519,11 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
+  // 
+  // Optimization 4 and 5
+  // Change querySelectorAll function by getElementsByClassName because of its better performance (https://jsperf.com/getelementsbyclassname-vs-queryselectorall)
+  // The scrollTop is stored in variable call cachedScrollTop to be used inside the loop.
+  // 
   var items = document.getElementsByClassName('mover');
   var cachedTopScroll = document.body.scrollTop;
   for (var i = 0; i < items.length; i++) {
@@ -525,6 +545,11 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
+// 
+// Optimization 6 and 7
+// Change querySelector function by  getElementById because of its better performance and moved ouf of the loop as it is the same for all iterations.
+// Loop iterations were reduced to 31 as this is the number of pizzas rendered on screen. There is no need to paint 200 pizzas.
+// 
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;

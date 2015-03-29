@@ -21,11 +21,11 @@ The following optimizations were performed to achieve a score of 96 (mobile) and
 ## Part 2: Optimize Frames per Second in pizza.html
 The following optimizations were implemented to get to a frame rate of 60 FPS:
 
-1. main.js (line 427,474): Change `querySelector` function by `getElementById` because of its better performance (http://jsperf.com/getelementbyid-vs-queryselector).
-2. main.js (lines 454-456): `randomPizzaContainer` new width is the same for all containsers, so its calculation was moved out of the loop.
-3. main.js (lines 474): The `randomPizzas` element is moved out of the loop as it is the same to all iterations.
-4. main.js (line 507): Change `querySelectorAll` function by `getElementsByClassName` because of its better performance (https://jsperf.com/getelementsbyclassname-vs-queryselectorall).
-5. main.js (line 508): The scrollTop is stored in variable call `cachedScrollTop` to be used inside the loop.
+1. main.js (line 432,489): Change `querySelector` function by `getElementById` because of its better performance (http://jsperf.com/getelementbyid-vs-queryselector).
+2. main.js (lines 462-465): `randomPizzaContainer` new width is the same for all containsers, so its calculation was moved out of the loop.
+3. main.js (lines 489): The `randomPizzas` element is moved out of the loop as it is the same to all iterations.
+4. main.js (line 527): Change `querySelectorAll` function by `getElementsByClassName` because of its better performance (https://jsperf.com/getelementsbyclassname-vs-queryselectorall).
+5. main.js (line 528): The scrollTop is stored in variable call `cachedScrollTop` to be used inside the loop.
 6. main.js (line 531): Change `querySelector` function by `getElementById` because of its better performance and moved ouf of the loop as it is the same for all iterations.
 7. main.js (line 532): Loop iterations were reduced to 31 as this is the number of pizzas rendered on screen. There is no need to paint 200 pizzas.
 
