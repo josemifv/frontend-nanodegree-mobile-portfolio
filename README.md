@@ -1,5 +1,39 @@
 ## Website Performance Optimization portfolio project
 
+## Installation
+This project uses [Grunt](http://gruntjs.com) to perform several optimization tasks. To run it, please follow the installation instructions in the [Getting Started section](http://gruntjs.com/getting-started).
+
+After installing Grunt, follow the following steps:
+
+1. Change to the project's root directory.
+2. Install project dependencies with `npm install`.
+3. Run Grunt with `grunt`.
+
+## Part 1: Optimize PageSpeed Insights score for index.html
+The following optimizations were performed to achieve a score of 96 (mobile) and 97 (desktop) for index.html:
+
+1. JavaScript is minified using `grunt-contrib-uglify` module.
+2. CSS is minified using `grunt-contrib-cssmin` module.
+3. Images are minified using `grunt-contrib-imagemin` module. As views/images/pizzeria.jpg was too large, a smaller 100px-width version was generated (views/images/pizzeria_w100.png).
+4. All JavaScript code was moved to the bottom of the page and Google Analytics is loaded async.
+5. Critical CSS is included inline and CSS styles and media queries are used.
+
+## Part 2: Optimize Frames per Second in pizza.html
+The following optimizations were implemented to get to a frame rate of 60 FPS:
+
+1. main.js (line 427,474): Change `querySelector` function by `getElementById` because of its better performance (http://jsperf.com/getelementbyid-vs-queryselector).
+2. main.js (lines 454-456): `randomPizzaContainer` new width is the same for all containsers, so its calculation was moved out of the loop.
+3. main.js (lines 474): The `randomPizzas` element is moved out of the loop as it is the same to all iterations.
+4. main.js (line 507): Change `querySelectorAll` function by `getElementsByClassName` because of its better performance (https://jsperf.com/getelementsbyclassname-vs-queryselectorall).
+5. main.js (line 508): The scrollTop is stored in variable call `cachedScrollTop` to be used inside the loop.
+6. main.js (line 531): Change `querySelector` function by `getElementById` because of its better performance and moved ouf of the loop as it is the same for all iterations.
+7. main.js (line 532): Loop iterations were reduced to 31 as this is the number of pizzas rendered on screen. There is no need to paint 200 pizzas.
+
+## Used resources
+To accomplish this project it was crucial the read of all links from the Optimization Tips and Ticks section (below), Udacity's forum and Udacity's Office Hours for P3 and P4. 
+
+## OLD README...
+
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository, inspect the code,
